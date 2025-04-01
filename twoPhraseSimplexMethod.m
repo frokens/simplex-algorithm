@@ -7,6 +7,8 @@ function x = twoPhraseSimplexMethod(A, b, c, AV_num)
         error('Problem is infeasible');
     end
 
+    disp("------------------------------------------------------");
+    
     disp('Phase 2 result:');
     A = A(:,1:size(A,2) - AV_num + 1);
     c = c(1:size(A,2) - AV_num + 1);

@@ -15,9 +15,9 @@ disp('Optimal solution:');
 
 x_str = 'x = [';
 for i = 1:size(x)
-    x_str = [x_str, num2str(x(i))];
+    x_str = [x_str, num2str(x(i))]; %#ok<AGROW>
     if i ~= size(x,1)
-        x_str = [x_str, ', '];
+        x_str = [x_str, ', ']; %#ok<AGROW>
     end
 end
 x_str = [x_str, ']'];
