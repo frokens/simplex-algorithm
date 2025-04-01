@@ -28,22 +28,28 @@ function [A,b,x_b_index,x] = simplexMethod(A,b,c)
             x_b_index(x_index) = i;
         end
     end
+
     c_b = c(x_b_index);
     sigma = c - c_b * A;
 
 
     while any(sigma > 0)
         [~, entering_index] = max(sigma);
-        if all(A(:,entering_index) <= 0)
-            error('Problem is unbounded');
-        end
+
         theta = inf(size(A,1),1);
+
+        if all(A(:,entering_index) <= 0)
+            error('Problem is without maximum solution');
+        end
+
+
         for i = 1:size(A,1)
             if A(i,entering_index) > 0
                 theta(i) = b(i) / A(i,entering_index);
             end
         end
-        [~, leaving_index] = min(theta);
+
+        [~, leaving_index] = find(theta == min(theta), 1, 'last');
         
         show_tabula(A, b, x_b_index, c_b, theta, sigma)
         % Update the basis
@@ -71,6 +77,13 @@ function [A,b,x_b_index,x] = simplexMethod(A,b,c)
     end
 
     theta = zeros(size(A,1),1);
+
+
+    for i = 1:size(A,1)
+        if sigma(i) == 0 && ~any(x_b_index == i)
+            disp("the problem exist infinite solution");
+        end
+    end
 
     show_tabula(A, b, x_b_index, c_b, theta,sigma)
 
