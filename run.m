@@ -1,16 +1,15 @@
 clc;clear;
 format rat;
 
-A = [5,3,1,1,0,0,0;
-     -5,6,15,0,1,0,0;
-     2,1,1,0,0,-1,1;];
+A = [1,2/3,1/3,0;
+     0,1/3,2/3,1];
 
-b = [9; 15; 5];
+b = [100/3; 200/6];
 
 %c = [-2,-3,-1,0,0,-1,-1];
-c = [0,0,0,0,0,0,-1];%% Objective function coefficients
+c = [-0.5, -0.4, -0.3, -0.2];%% Objective function coefficients
 
-x = twoPhraseSimplexMethod(A,b,c,1);
+[~,~,~,x] = simplexMethod(A,b,c);
 disp('Optimal solution:');
 
 x_str = 'x = [';
@@ -21,4 +20,4 @@ for i = 1:size(x)
     end
 end
 x_str = [x_str, ']'];
-disp(x_str);
+disp(x);

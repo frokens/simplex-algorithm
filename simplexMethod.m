@@ -8,7 +8,6 @@ function [A,b,x_b_index,x] = simplexMethod(A,b,c)
 % Outputs:
 %   x - Solution vector of the linear programming problem
 
-
     format rat;
     x_b_index = zeros(size(A,1), 0);
 
@@ -30,8 +29,8 @@ function [A,b,x_b_index,x] = simplexMethod(A,b,c)
     end
 
     c_b = c(x_b_index);
-    sigma = c - c_b * A;
 
+    sigma = c - c_b * A;
 
     while any(sigma > 0)
         [~, entering_index] = max(sigma);
@@ -79,13 +78,13 @@ function [A,b,x_b_index,x] = simplexMethod(A,b,c)
     theta = zeros(size(A,1),1);
 
 
+    show_tabula(A, b, x_b_index, c_b, theta,sigma)
+
     for i = 1:size(A,1)
-        if sigma(i) == 0 && ~any(x_b_index == i)
+        if sigma(i) == 0 && any(x_b_index == i)
             disp("the problem exist infinite solution");
         end
     end
-
-    show_tabula(A, b, x_b_index, c_b, theta,sigma)
 
     x = zeros(size(A,2),1);
     for i = 1:size(A,1)
